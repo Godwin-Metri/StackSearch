@@ -1,0 +1,66 @@
+{% extends 'search/base.html' %}
+{% load static %}
+{% block content %}
+
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="search-result-box card-box">
+                    <div class="row">
+                        <div class="col-md-8 offset-md-2">
+                            <div class="pt-3 pb-4">
+                                <form action="{% url 'search' %}" method="post">
+                                    {% csrf_token %}
+                                    <div class="input-group">
+                                    <input type="text" id="" name="search_query" class="form-control" placeholder="Search Query">
+                                    <div class="input-group-append">
+                                        <button type="submit" class="btn btn-secondary">Search</button>
+                                    </div>
+                                </div>
+                                </form>
+
+                                <div class="mt-4 text-center">
+                                    <h4>Search Results For :- {{ query }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a>All results <span class="badge badge-success ml-1">{{size}}</span></a><br><br>
+                    <!-- end row -->
+
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {% for d in data %}
+                                    <div class="search-item">
+                                        <div class="media"><img class="d-flex mr-3 rounded-circle" src="{{d.owner.profile_image}}" alt="Generic placeholder image" height="54">
+                                            <div class="media-body">
+                                                <h5 class="media-heading mt-0"><a href="{{d.owner.link}}" class="text-dark">{{ d.owner.display_name }}</a></h5>
+                                                <p class="font-13"><b>Link:</b> <span><a href="{{d.owner.link}}" class="text-muted">{{d.owner.link}}</a></span></p>
+
+                                            </div>
+                                        </div>
+                                        <h4 class="mb-1"><a href="{{d.link}}">{{d.title}}</a></h4>
+                                        <div class="font-13 text-success mb-3">{{d.link}}</div>
+<!--                                        <p class="mb-0 text-muted">Dolor posuere proin blandit accumsan senectus netus nullam curae, ornare laoreet adipiscing luctus mauris adipiscing pretium eget fermentum, tristique lobortis est ut metus lobortis tortor tincidunt himenaeos habitant quis dictumst proin odio sagittis purus mi, nec taciti vestibulum quis in sit varius lorem sit metus mi.</p>-->
+                                    </div>
+                                    {% endfor %}
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end All results tab -->
+                        <!-- Users tab -->
+                        <!-- end Users tab -->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- container -->
+</div>
+{% endblock content %}
